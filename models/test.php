@@ -1,8 +1,7 @@
 <?php
 namespace models;
 
-class category
-{
+class test{
     public function insert()
     {
 
