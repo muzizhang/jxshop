@@ -16,12 +16,13 @@
     <div style="clear:both"></div>
 </h1>
 <div class="main-div">
-    <form action="__GROUP__/Category/categoryAdd" method="post" name="theForm" enctype="multipart/form-data">
+    <form action="/<?=$tableName?>/add" method="post" enctype="multipart/form-data">
         <table width="100%" id="general-table">
             <tr>
                 <td class="label">分类名称:</td>
                 <td>
-                    <input type='text' name='cat_name' maxlength="20" value='' size='27' /> <font color="red">*</font>
+                    <input type='text' name='cat_name' /> 
+                    <font color="red">*</font>
                 </td>
             </tr>
             <tr>

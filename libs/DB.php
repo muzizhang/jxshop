@@ -19,4 +19,9 @@ class DB
         }
         return self::$_obj;
     }
+    //  预处理
+    public function prepare($sql)
+    {
+        return $this->_pdo->prepare($sql);
+    }
 }

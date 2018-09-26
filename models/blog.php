@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class category{
+class blog{
     public function insert()
     {
 

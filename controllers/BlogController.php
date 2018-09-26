@@ -1,17 +1,17 @@
 <?php 
 namespace controllers;
 
-class TestController
+class BlogController
 {
     // 分类首页
     public function index()
     {
-        view('test/index');
+        view('blog/index');
     }
     //  创建分类
     public function create()
     {
-        view('test/create');
+        view('blog/create');
     }
     //  处理添加分类表单
     public function add()
@@ -21,7 +21,7 @@ class TestController
     //   编辑分类
     public function edit()
     {
-        view('test/create');
+        view('blog/create');
     }
     //  处理编辑分类表单
     public function modify()
@@ -31,6 +31,6 @@ class TestController
     //  删除分类
     public function delete()
     {
-        view('test/create');
+        view('blog/create');
     }
 }
