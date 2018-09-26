@@ -16,7 +16,9 @@ class <?=$name?>Controller
     //  处理添加分类表单
     public function add()
     {
-
+        //  调用模型
+        <?=$tableName?> = new \models\<?=$tableName?>;
+        <?=$tableName?>->fill($_POST);
     }
     //   编辑分类
     public function edit()
