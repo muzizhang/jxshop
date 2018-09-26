@@ -24,4 +24,10 @@ class DB
     {
         return $this->_pdo->prepare($sql);
     }
+    
+    public function exec($sql)
+    {
+        return $this->_pdo->exec($sql);
+    }
+
 }

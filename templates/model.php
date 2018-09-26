@@ -1,22 +1,7 @@
 
 namespace models;
 
-class <?=$tableName?>
+class <?=$tableName?> extends model
 {
-    public function insert()
-    {
-
-    }
-    public function search()
-    {
-
-    }
-    public function edit()
-    {
-        
-    }
-    public function delete()
-    {
-
-    }
+    
 }

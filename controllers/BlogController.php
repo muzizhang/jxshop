@@ -16,7 +16,9 @@ class BlogController
     //  处理添加分类表单
     public function add()
     {
-
+        //   传递数据
+        $blog = new \models\blog;
+        $blog->fill($_POST);
     }
     //   编辑分类
     public function edit()
