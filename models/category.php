@@ -8,6 +8,15 @@ class category extends model
     //   白名单
     protected $fillable = ['cat_name','parent_id','path'];
 
+    //  查询根级分类
+    public function category($parent_id = 0)
+    {
+        return $this->findAll([
+                'where'=>'parent_id = '.$parent_id,
+                'order_way'=>'asc'
+            ]);
+    }
+
     //  无限级分类
     public function cate()
     {

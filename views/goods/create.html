@@ -18,72 +18,100 @@
 <div class="main-div">
     <form action="/goods/add" method="post" enctype="multipart/form-data">
         <table width="100%" id="general-table">
-                            <tr>
-                    <td class="label">商品名称:</td>
-                    <td>
-                                                    <input type='text' name='goods_name'/>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">LOGO:</td>
-                    <td>
-                                                    <input type='text' name='logo'/>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">是否上架:</td>
-                    <td>
-                                                    <input type="radio" name="is_on_sale" id="" value="y">显示
-                            <input type="radio" name="is_on_sale" id="" value="n">私有
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">商品描述:</td>
-                    <td>
-                                                    <textarea name="description" id="" cols="90" rows="10"></textarea>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">一级分类ID:</td>
-                    <td>
-                                                    <input type='text' name='cat1_id'/>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">二级分类ID:</td>
-                    <td>
-                                                    <input type='text' name='cat2_id'/>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">三级分类ID:</td>
-                    <td>
-                                                    <input type='text' name='cat3_id'/>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="label">品牌ID:</td>
-                    <td>
-                                                    <input type='text' name='brand_id'/>
-                        
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                    </table>
+            <h3>基本信息</h3>
+            <tr>
+                <td class="label">商品名称:</td>
+                <td>
+                    <input type='text' name='goods_name'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">LOGO:</td>
+                <td>
+                    <input class="img_preview" type='file' name='logo'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">是否上架:</td>
+                <td>
+                    <input type="radio" name="is_on_sale" id="" value="y" checked>显示
+                    <input type="radio" name="is_on_sale" id="" value="n">私有
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">商品描述:</td>
+                <td>
+                    <textarea name="description" id="" cols="90" rows="10"></textarea>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">一级分类ID:</td>
+                <td>
+                    <select name="" id="cat1">
+                        <option value="">请选择</option>
+                        <?php foreach($cate['data'] as $v):   ?>
+                        <option value="<?=$v['id']?>"><?=$v['cat_name']?></option>
+                        <?php endforeach;  ?>
+                    </select>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">二级分类ID:</td>
+                <td>
+                    <select name="" id="cat2"></select>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">三级分类ID:</td>
+                <td>
+                    <select name="" id="cat3"></select>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">品牌ID:</td>
+                <td>
+                    <input type='text' name='brand_id'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" id="general-table">
+            <h3>商品属性</h3>
+            <tr>
+                <td class="label">商品名称:</td>
+                <td>
+                    <input type='text' name='goods_name'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" id="general-table">
+            <h3>商品图片</h3>
+            <tr>
+                <td class="label">商品名称:</td>
+                <td>
+                    <input type='text' name='goods_name'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" id="general-table">
+            <h3>sku</h3>
+            <tr>
+                <td class="label">商品名称:</td>
+                <td>
+                    <input type='text' name='goods_name'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+        </table>
         <div class="button-div">
             <input type="submit" value=" 确定 " />
             <input type="reset" value=" 重置 " />
@@ -95,3 +123,53 @@
 
 </body>
 </html>
+<script src="/Js/jquery.min.js"></script>
+<script src="/Js/img_preview.js"></script>
+<script>
+    //  获取一级分类的id
+    $('#cat1').change(function(){
+        var id = $(this).val();
+        if(id != ''){
+            //  根据id 获取二级分类的内容
+            $.ajax({
+                type:'GET',
+                url:'/goods/cate_two?id='+id,
+                dataType:'json',
+                success:function(data){
+                    var html = '';
+                    for(var i =0;i<data.data.length;i++)
+                    {
+                        html += '<option value="'+data.data[i].id+'">'+data.data[i].cat_name+'</option>';
+                    }
+                    $('#cat2').html(html);
+                    //  使用 jquery 的  trigger()  响应事件
+                    $('#cat2').trigger('change',$('#cat2').val());
+                }
+            });
+        }
+        else
+        {
+            $('#cat2').html('');
+            $('#cat3').html('');
+        }
+    });
+
+    //  三级分类
+    $('#cat2').change(function(){
+        var id = $(this).val();
+        //  获取内容
+        $.ajax({
+            type:'GET',
+            url:'/goods/cate_three?id='+id,
+            dataType:'json',
+            success:function(data){
+                var html = '';
+                for(var i=0;i<data.data.length;i++)
+                {
+                    html += '<option value="'+data.data[i].id+'">'+data.data[i].cat_name+'</option>';
+                }
+                $('#cat3').html(html);
+            }
+        });
+    });
+</script>

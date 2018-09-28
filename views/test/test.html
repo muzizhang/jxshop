@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/test/test" method="post" enctype="multipart/form-data">
+        <table width="100%" id="general-table">
+            <h3>基本信息</h3>
+            <tr>
+                <td class="label">LOGO:</td>
+                <td>
+                    <input class="img_preview" type='file' name='logo'/>
+                    <font color="red">*</font>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+<script src="/Js/jquery.min.js"></script>
+<!-- 实现图片预览功能 -->
+<script>
+    //  给图片添加一个改变事件
+    $('.img_preview').change(function(){
+        //获取图片的路径
+        var url = this.files[0];
+        //  将图片路径转换为字符串格式
+        // console.log(getObjectUrl(url));
+        // blob:http://localhost:9999/62a4bfe3-acd4-475b-a3f8-d7fe53e8a97d
+        var path = getObjectUrl(url);
+        //  删除当前元素的前一个元素
+        $(this).prev('img').remove();
+        //  在当前元素前添加一个img标签
+        $(this).before("<img src='"+path+"' width='120' height='120'/>");
+    });
+    function getObjectUrl(file)
+    {
+        var url = null;
+        if(window.createObjectURL != undefined)
+        {
+            url = window.createObjectUrl(file)
+        }
+        else if(window.URL != undefined)
+        {
+            url = window.URL.createObjectURL(file)
+        }
+        else if(window.webkitURL != undefined)
+        {
+            url = window.webkitURL.createObjectURL(file)
+        }
+        return url;
+    }
+</script>
+
+
+
+<!-- <script>
+    //  实现图片预览
+    //  当用户选择图片时，触发事件
+    $('.img_preview').change(function(){
+        //  获取图片路径
+        var url = this.files[0];
+        //  将图片路径转换为字符串
+        // console.log(getObjectUrl(url));
+        // blob:http://localhost:9999/e3a2c12b-d097-4ec7-b72a-0b21d4abd63b
+        $path = getObjectUrl(url);
+        //  删除上一个图片
+        $(this).prev('.img_preview').remove();
+        //  在框的前面加一个img标签
+        $(this).before("<div class='img_preview'><img src="+$path+" width='50' height='50' /></div>");
+    });
+    
+    //  被弃用
+    // console.log(webkitURL);
+
+    // 把图片转成一个字符串
+    function getObjectUrl(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file)
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file)
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file)
+        }
+        return url
+    }
+</script> -->
+
