@@ -16,29 +16,33 @@
     <div style="clear:both"></div>
 </h1>
 <div class="main-div">
-    <form action="/<?=$tableName?>/modify" method="post" enctype="multipart/form-data">
+    <form action="/category/modify" method="post" enctype="multipart/form-data">
         <table width="100%" id="general-table">
-            <?php foreach($fields as $v): 
-            if($v['Field'] == 'id' || $v['Field'] == 'created_at')
-                continue;
-            ?>
-                <tr>
-                    <td class="label"><?=$v['Comment']?>:</td>
+                            <tr>
+                    <td class="label">分类名称:</td>
                     <td>
-                        <?php if($v['Type'] == 'longtext'): ?>
-                            <textarea name="<?=$v['Field']?>" id="" cols="90" rows="10"><?='<?=$data[\''.$v['Field'].'\']?>';?></textarea>
-                        <?php elseif(substr($v['Type'],0,4) == 'enum'): ?>
-                            <input type="radio" name="<?=$v['Field']?>" id="" value="y">显示
-                            <input type="radio" name="<?=$v['Field']?>" id="" value="n">私有
-                        <?php else: ?>
-                            <input type='text' name='<?=$v["Field"]?>' value='<?='<?=$data[\''.$v['Field'].'\']?>';?>' />
-                        <?php endif; ?>
-
+                                                    <input type='text' name='cat_name' value='<?=$data['cat_name']?>' />
+                        
                         <font color="red">*</font>
                     </td>
                 </tr>
-            <?php endforeach; ?>
-        </table>
+                            <tr>
+                    <td class="label">上级ID:</td>
+                    <td>
+                                                    <input type='text' name='parent_id' value='<?=$data['parent_id']?>' />
+                        
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="label">所有上级分类的ID:</td>
+                    <td>
+                                                    <input type='text' name='path' value='<?=$data['path']?>' />
+                        
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                    </table>
         <div class="button-div">
             <input type="submit" value=" 确定 " />
             <input type="reset" value=" 重置 " />

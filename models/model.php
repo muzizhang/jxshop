@@ -41,7 +41,7 @@ class model
         $key = implode(',',$key);
         $token = implode(',',$token);
         $stmt = $this->_pdo->prepare("INSERT INTO $this->table($key) VALUES($token)");
-        return $stmt->execute($value);
+        $stmt->execute($value);
         $this->data['id'] = $this->_pdo->lastInsertId();
 
         $this->_after_write();
