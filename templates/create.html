@@ -18,7 +18,7 @@
 <div class="main-div">
     <form action="/<?=$tableName?>/add" method="post" enctype="multipart/form-data">
         <table width="100%" id="general-table">
-            <?php foreach($data as $v): 
+            <?php foreach($fields as $v): 
                 if($v['Field'] == 'id' || $v['Field'] == 'created_at')
                     continue;
             ?>

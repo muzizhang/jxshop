@@ -7,3 +7,10 @@ function view($files,$data = [])
     extract($data);
     include(ROOT.'views/'.$files.'.html');
 }
+
+//  跳转页面
+function redirect($url)
+{
+    header('Location:'.$url);
+    exit;
+}

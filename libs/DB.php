@@ -24,10 +24,15 @@ class DB
     {
         return $this->_pdo->prepare($sql);
     }
-    
+    //   处理数据
     public function exec($sql)
     {
         return $this->_pdo->exec($sql);
     }
-
+    //   添加数据   获取数据的最后id
+    public function lastInsertId()
+    {
+        //   返回最后插入行的ID
+        return $this->_pdo->lastInsertId();
+    }
 }

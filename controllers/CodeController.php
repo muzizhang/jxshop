@@ -20,6 +20,25 @@ class CodeController
         //  将获取的数据，加载到指定位置
         file_put_contents(ROOT.'controllers/'.$name.'Controller.php',"<?php ".$str);
         
+        //  连接数据库，查询表数据
+        $db = \libs\DB::make();
+        $stmt = $db->prepare("SHOW FULL FIELDS FROM $tableName");
+        $stmt->execute();
+        $fields = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        echo '<pre>';
+        var_dump($fields);
+        
+        //  收集所有字段的白名单数据
+        $fillable = [];
+        foreach($fields as $v)
+        {
+            if($v['Field'] == 'id' || $v['Field'] == 'created_at')
+                continue;
+            
+            $fillable[] = $v['Field'];
+        }
+        //  将数组转换为字符串
+        $fillable = implode("','",$fillable);
 
 
         //   模型
@@ -32,13 +51,7 @@ class CodeController
         //  创建文件夹
         @mkdir(ROOT.'views/'.$tableName,0777);
 
-        //  连接数据库，查询表数据
-        $db = \libs\DB::make();
-        $stmt = $db->prepare("SHOW FULL FIELDS FROM $tableName");
-        $stmt->execute();
-        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        echo '<pre>';
-        var_dump($data);
+       
         
         //  创建
         ob_start();
