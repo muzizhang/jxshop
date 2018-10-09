@@ -8,24 +8,33 @@ class AdminController
     {
         //  查询所有
         $admin = new \models\admin;
-        $data = $admin->findAll();
+        $data = $admin->findAll([
+            'order_way'=>'asc'
+        ]);
         view('admin/index',$data);
     }
     //  创建分类
     public function create()
     {
+        //  取出角色
+        $role = new \models\role; 
+        $ro = $role->role();
 
-        view('admin/create');
+        view('admin/create',[
+            'role'=>$ro
+        ]);
     }
     //  处理添加分类表单
     public function add()
     {
         //  调用模型
         $admin = new \models\admin;
+        $_POST['password'] = md5($_POST['password']);
         //  传输数据
         $admin->fill($_POST);
         //  添加数据
         $admin->insert();
+        
         //  跳转页面
         redirect('/admin/index');
     }
@@ -36,8 +45,18 @@ class AdminController
         $admin = new \models\admin;
         //  接收数据
         $data = $admin->find($_GET['id']);
+
+        //  取出角色列表
+        $role = new \models\role;
+        $ro = $role->role();
+        //  取出当前用户的角色
+        $roles = $admin->role($_GET['id']);
+        // echo '<pre>';
+        // var_dump($roles);
         view('admin/edit',[
-            'data'=>$data
+            'data'=>$data,
+            'role'=>$ro,
+            'roles'=>$roles
         ]);
     }
     //  处理编辑分类表单
@@ -47,6 +66,7 @@ class AdminController
         $admin = new \models\admin;
         //  传输数据
         $admin->fill($_POST);
+
         //  添加数据
         $admin->update($_GET['id']);
         redirect('/admin/index');

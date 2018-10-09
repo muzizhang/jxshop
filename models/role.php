@@ -8,6 +8,14 @@ class role extends model
     //   白名单
     protected $fillable = ['role_name'];
 
+    //   取出所有角色
+    public function role()
+    {
+        return $this->findAll([
+            'order_way'=>'asc'
+        ]);
+    }
+
     //  取出该角色的权限
     public function priId($id)
     {

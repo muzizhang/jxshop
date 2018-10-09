@@ -18,12 +18,12 @@
         <div style="clear:both"></div>
     </h1>
     <div class="main-div">
-        <form action="/admin/modify" method="post" enctype="multipart/form-data">
+        <form action="/admin/modify?id=<?=$data['id']?>" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
                 <tr>
                     <td class="label">管理员名称:</td>
                     <td>
-                        <input type='text' name='user_name' value='<?=$data[' user_name']?>' />
+                        <input type='text' name='user_name' value='<?=$data['user_name']?>' />
 
                         <font color="red">*</font>
                     </td>
@@ -31,9 +31,22 @@
                 <tr>
                     <td class="label">密码:</td>
                     <td>
-                        <input type='text' name='password' value='<?=$data[' password']?>' />
+                        <input type='text' name='password' value='<?=$data['password']?>' />
 
                         <font color="red">*</font>
+                    </td>
+                </tr>
+            </table>
+            <h3>选择角色</h3>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">角色列表:</td>
+                    <td>
+                        <?php foreach($role['data'] as $v): ?>
+                            <input <?php if(in_array($v['id'],$roles)) echo "checked"; ?> type="checkbox" name="role_id[]" value="<?=$v['id']?>">
+                            <?=$v['role_name']?>
+                            <br><br>
+                        <?php endforeach; ?>
                     </td>
                 </tr>
             </table>
