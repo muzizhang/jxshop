@@ -11,7 +11,12 @@ class BaseController
             redirect('/login/index');
         }
 
-        $admin = new \models\admin;
+        //   判断如果是超级管理员  直接访问
+        if(isset($_SESSION['root']))
+        {
+            return ;
+        }
+
         //   地址栏是否有参数
         $parms = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'],'/') : 'index/index';
         $white = ['index/index','index/top','index/menu','index/main'];

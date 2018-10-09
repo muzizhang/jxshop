@@ -55,8 +55,16 @@ class admin extends model
         {
             $_SESSION['id'] = $ret['id'];
             $_SESSION['username'] = $username;
-            //  在登录的时候将权限保存到session中
-            $_SESSION['url_path'] = $this->privilege_url();
+
+            //   查看当前管理员 是否有一个角色是超级管理员
+            $stmt = $this->_pdo->prepare('SELECT count(*) FROM role_admin WHERE role_id = 1 AND admin_id = ?');
+            $stmt->execute([$ret['id']]);
+            $ret = $stmt->fetch(\PDO::FETCH_COLUMN);
+            if($ret>0)
+                $_SESSION['root'] = true;
+            else 
+                //  在登录的时候将权限保存到session中
+                $_SESSION['url_path'] = $this->privilege_url();
         }
         else
         {
