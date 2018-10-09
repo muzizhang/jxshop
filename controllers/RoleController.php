@@ -46,8 +46,18 @@ class RoleController
         $role = new \models\role;
         //  接收数据
         $data = $role->find($_GET['id']);
+        //  取出该角色的权限
+        $pri = $role->priId($_GET['id']);
+
+        //   取出所有权限
+        $privilege = new \models\privilege;
+        $priId = $privilege->tree();
+        
+
         view('role/edit',[
-            'data'=>$data
+            'data'=>$data,
+            'priId'=>$priId,
+            'pri'=>$pri,
         ]);
     }
     //  处理编辑分类表单
@@ -59,6 +69,7 @@ class RoleController
         $role->fill($_POST);
         //  添加数据
         $role->update($_GET['id']);
+        
         redirect('/role/index');
     }
     //  删除分类

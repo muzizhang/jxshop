@@ -8,15 +8,38 @@ class role extends model
     //   白名单
     protected $fillable = ['role_name'];
 
+    //  取出该角色的权限
+    public function priId($id)
+    {
+        $stmt = $this->_pdo->prepare('SELECT pri_id FROM role_privilege WHERE role_id = ?');
+        $stmt->execute([
+            $id
+        ]);
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        //  将二维数组变成一维数组
+        $arr = [];
+        foreach($data as $k=>$v)
+        {
+            $arr[] = $v['pri_id'];
+        }
+        return $arr;
+    }
+
     //   在添加前，将权限数据，保存到数据库中
     public function _after_write()
     {
+        //  获取当前的id
+        $id = isset($_GET['id']) ? $_GET['id'] : $this->data['id'];
+        //   在添加商品之前删除原纪录
+        $stmt = $this->_pdo->prepare('DELETE FROM role_privilege WHERE role_id = ?');
+        $stmt->execute([$id]);
+        //   插入数据
         $stmt = $this->_pdo->prepare('INSERT INTO role_privilege(pri_id,role_id) VALUES(?,?)');
         foreach($_POST['pri_id'] as $v)
         {
             $stmt->execute([
                 $v,
-                $this->data['id']
+                $id
             ]);
         }
     }
