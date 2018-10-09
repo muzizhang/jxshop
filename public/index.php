@@ -1,4 +1,5 @@
 <?php
+session_start();
 //  设置常量
 define('ROOT',__DIR__.'/../');
 //  引入函数类

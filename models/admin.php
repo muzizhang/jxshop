@@ -8,6 +8,34 @@ class admin extends model
     //   白名单
     protected $fillable = ['user_name','password'];
 
+    //   登录
+    public function login($username,$password)
+    {
+        $stmt = $this->_pdo->prepare('SELECT COUNT(*) FROM admin WHERE user_name = ? AND password = ?');
+        $stmt->execute([
+            $username,
+            $password
+        ]);
+        $ret = $stmt->fetch(\PDO::FETCH_COLUMN);
+        if($ret)
+        {
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+        }
+        else
+        {
+            throw new \Exception('用户名或者密码错误');
+        }
+    }
+
+    //  退出
+    public function logout()
+    {
+        //  将session 清空
+        $_SESSION = [];
+        session_destroy();
+    }
+
     //  删除中间表上的数据
     public function _before_delete()
     {
