@@ -18,28 +18,28 @@
         <div style="clear:both"></div>
     </h1>
     <div class="main-div">
-        <form action="/category/modify" method="post" enctype="multipart/form-data">
+        <form action="/privilege/modify" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
                 <tr>
-                    <td class="label">分类名称:</td>
+                    <td class="label">权限名称:</td>
                     <td>
-                        <input type='text' name='cat_name' value='<?=$data['cat_name']?>' />
+                        <input type='text' name='pri_name' value='<?=$data[' pri_name']?>' />
 
                         <font color="red">*</font>
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">上级ID:</td>
+                    <td class="label">对应的URL地址，多个地址用,隔开:</td>
                     <td>
-                        <input type='text' name='parent_id' value='<?=$data['parent_id']?>' />
+                        <input type='text' name='url_path' value='<?=$data[' url_path']?>' />
 
                         <font color="red">*</font>
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">所有上级分类的ID:</td>
+                    <td class="label">上级id:</td>
                     <td>
-                        <input type='text' name='path' value='<?=$data['path']?>' />
+                        <input type='text' name='parent_id' value='<?=$data[' parent_id']?>' />
 
                         <font color="red">*</font>
                     </td>

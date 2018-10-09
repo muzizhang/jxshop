@@ -10,7 +10,7 @@
 
 <body>
     <h1>
-        <span class="action-span"><a href="/category/create">添加数据</a></span>
+        <span class="action-span"><a href="/role/create">添加数据</a></span>
         <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
         <span id="search_id" class="action-span1"> - 数据列表 </span>
         <div style="clear:both"></div>
@@ -19,9 +19,8 @@
         <table cellpadding='3' cellspacing='1'>
             <tr>
                 <td>ID</td>
-                <td>分类名称</td>
-                <td>上级ID</td>
-                <td>所有上级分类的ID</td>
+                <td>角色名称</td>
+                <td>权限</td>
                 <td>操作</td>
             </tr>
             <?php foreach($data as $v): ?>
@@ -30,23 +29,24 @@
                     <?=$v['id']?>
                 </td>
                 <td>
-                    <?=str_repeat('&nbsp;',8*(count(explode('-',$v['path']))-2)).$v['cat_name']?>
+                    <?=$v['role_name']?>
                 </td>
                 <td>
-                    <?=$v['parent_id']?>
+                    <?php if($v['id']==1): ?>
+                    *
+                    <?php else: ?>
+                    <?=$v['privilege']?>
+                    <?php endif; ?>
                 </td>
                 <td>
-                    <?=$v['path']?>
-                </td>
-                <td>
-                    <a href="/category/edit?id=<?=$v['id']?>">修改</a>
-                    <a onclick="return confirm('确定要删除吗？');" href="/category/delete?id=<?=$v['id']?>">删除</a>
+                    <a href="/role/edit?id=<?=$v['id']?>">修改</a>
+                    <a onclick="return confirm('确定要删除吗？');" href="/role/delete?id=<?=$v['id']?>">删除</a>
                 </td>
             </tr>
             <?php endforeach; ?>
         </table>
     </div>
-    <!-- <div id="footer">商城后台</div>> -->
+    <!-- <div id="footer">商城后台</div> -->
     <?=view('common/footer')?>
 </body>
 

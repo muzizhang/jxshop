@@ -105,7 +105,9 @@ class model
             'where'=>1,
             'order_by'=>'id',
             'order_way'=>'desc',
-            'per_page'=>20
+            'per_page'=>20,
+            'join'=>'',
+            'groupBy'=>''
         ];
         //   合并用户的配置
         if($options)
@@ -120,7 +122,9 @@ class model
         //  查询语句
         $sql = "SELECT {$_option['fields']}
                     FROM {$this->table}
+                    {$_option['join']}
                         WHERE {$_option['where']}
+                            {$_option['groupBy']}
                             ORDER BY {$_option['order_by']} {$_option['order_way']}
                                 LIMIT $offset,{$_option['per_page']}";
         $stmt = $this->_pdo->prepare($sql);
@@ -150,5 +154,23 @@ class model
        $stmt = $this->_pdo->prepare("SELECT * FROM {$this->table} WHERE id = ? ");
        $stmt->execute([$id]);
        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    //  无限极分类    递归取数据
+    protected function _tree($data,$parent_id=0,$level=0)
+    {
+        //   定义一个空数组，将取出的数据放到此数组中
+        static $arr = [];
+        foreach($data as $v)
+        {
+            if($v['parent_id'] == $parent_id)
+            {
+                $v['level'] = $level;
+                $arr[] = $v;
+                //  取下子级数据
+                $this->_tree($data,$v['id'],$level+1);
+            }
+        }
+        return $arr;
     }
 }

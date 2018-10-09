@@ -18,28 +18,20 @@
         <div style="clear:both"></div>
     </h1>
     <div class="main-div">
-        <form action="/category/modify" method="post" enctype="multipart/form-data">
+        <form action="/admin/modify" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
                 <tr>
-                    <td class="label">分类名称:</td>
+                    <td class="label">管理员名称:</td>
                     <td>
-                        <input type='text' name='cat_name' value='<?=$data['cat_name']?>' />
+                        <input type='text' name='user_name' value='<?=$data[' user_name']?>' />
 
                         <font color="red">*</font>
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">上级ID:</td>
+                    <td class="label">密码:</td>
                     <td>
-                        <input type='text' name='parent_id' value='<?=$data['parent_id']?>' />
-
-                        <font color="red">*</font>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">所有上级分类的ID:</td>
-                    <td>
-                        <input type='text' name='path' value='<?=$data['path']?>' />
+                        <input type='text' name='password' value='<?=$data[' password']?>' />
 
                         <font color="red">*</font>
                     </td>

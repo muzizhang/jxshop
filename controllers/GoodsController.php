@@ -40,12 +40,16 @@ class GoodsController
     //  处理添加分类表单
     public function add()
     {
+        // var_dump($_POST);
         //  调用模型
         $goods = new \models\goods;
         //  传输数据
         $goods->fill($_POST);
         //  添加数据
-        $goods->insert();
+        $a = $goods->insert();
+        var_dump($a);
+        die;
+        $goods->attribute();
         //  跳转页面
         redirect('/goods/index');
     }

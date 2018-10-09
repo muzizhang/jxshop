@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>
-    <span class="action-span"><a href="/brand/create">添加数据</a></span>
+    <span class="action-span"><a href="/admin/create">添加数据</a></span>
     <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
     <span id="search_id" class="action-span1"> - 数据列表 </span>
     <div style="clear:both"></div>
@@ -17,17 +17,17 @@
     <table cellpadding='3' cellspacing='1'>
         <tr>
                         <td>ID</td>
-                        <td>品牌名称</td>
-                        <td>LOGO</td>
+                        <td>管理员名称</td>
+                        <td>密码</td>
                         <td>操作</td>
         </tr>
         <?php foreach($data as $v): ?>        <tr>
                         <td><?=$v['id']?></td>
-                        <td><?=$v['brand_name']?></td>
-                        <td><?=$v['logo']?></td>
+                        <td><?=$v['user_name']?></td>
+                        <td><?=$v['password']?></td>
                         <td>
-                <a href="/brand/edit?id=<?=$v['id']?>">修改</a>
-                <a onclick="return confirm('确定要删除吗？');" href="/brand/delete?id=<?=$v['id']?>">删除</a>
+                <a href="/admin/edit?id=<?=$v['id']?>">修改</a>
+                <a onclick="return confirm('确定要删除吗？');" href="/admin/delete?id=<?=$v['id']?>">删除</a>
             </td>
         </tr>
         <?php endforeach; ?>    </table>
@@ -40,6 +40,6 @@
         </tr>
     </table>
 </div>
-    <!-- <div id="footer">商城后台</div>> -->
+    <!-- <div id="footer">商城后台</div> -->
 <?=view('common/footer')?></body>
 </html>

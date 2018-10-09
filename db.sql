@@ -40,7 +40,7 @@ create table brand
 create table goods
 (
     id int unsigned not null auto_increment comment 'ID',
-    goods_name varchar(255) not null comment '商品名称',
+    goods_name VARCHAR(255) not null comment '商品名称',
     logo varchar(255) not null comment 'LOGO',
     is_on_sale enum('y','n') not null default 'y' comment '是否上架',
     description longtext not null comment '商品描述',
@@ -80,3 +80,95 @@ create table goods_sku
     goods_id int unsigned not null comment '所属的商品ID',
     primary key (id)
 )engine='InnoDB' comment='商品sku表';
+
+
+-- RBAC
+drop table if exists privilege;
+create TABLE privilege
+(
+    id int unsigned not null auto_increment comment 'ID',
+    pri_name VARCHAR(255) not null comment '权限名称',
+    url_path VARCHAR(255) not null comment '对应的URL地址，多个地址用,隔开',
+    parent_id int unsigned not null DEFAULT '0' comment '上级id',
+    primary key (id)
+)engine='InnoDB' comment='权限表';
+
+insert into privilege VALUES
+(1,'商品模块','',0),
+    (2,'品牌管理','brand/index,',1),
+        (3,'添加品牌','brand/create,brand/add',2),
+        (4,'修改品牌','brand/edit,brand/modify',2),
+        (5,'删除品牌','brand/delete',2),
+    (6,'商品管理','goods/index,',1),
+        (7,'添加商品','goods/create,goods/add',6),
+        (8,'修改商品','goods/edit,goods/modify',6),
+        (9,'删除商品','goods/delete',6);
+
+-- 地址     goods/create,goods/add
+
+drop table if exists role_privilege;
+create TABLE role_privilege
+(
+    pri_id int unsigned not null comment '权限ID',
+    role_id int unsigned not null comment '角色ID',
+    key pri_id(pri_id),
+    key role_id(role_id)
+)engine='InnoDB' comment='角色权限表';
+
+insert into role_privilege VALUES
+(2,2),
+(3,2),
+(4,2),
+(5,2),
+(1,3),
+(2,3),
+(3,3),
+(4,3),
+(5,3),
+(6,3),
+(7,3),
+(8,3),
+(9,3);
+
+
+drop table if exists role;
+create TABLE role
+(
+    id int unsigned not null auto_increment comment 'ID',
+    role_name VARCHAR(255) not null comment '角色名称',
+    primary key (id)
+)engine='InnoDB' comment='角色表';
+
+insert into role VALUES
+(1,'超级管理员'),
+(2,'品牌编辑'),
+(3,'商品总监');
+
+
+drop table if exists role_admin;
+create TABLE role_admin
+(
+    role_id int unsigned not null comment '角色ID',
+    admin_id int unsigned not null comment '管理ID',
+    key admin_id(admin_id),
+    key role_id(role_id)
+)engine='InnoDB' comment='角色管理表';
+
+insert into role_admin VALUES
+(1,1),
+(3,2),
+(2,3);
+
+drop table if exists admin;
+create table admin
+(
+    id int unsigned not null auto_increment comment 'ID',
+    user_name VARCHAR(255) not null comment '管理员名称',
+    password VARCHAR(255) not null comment '密码',
+    primary key (id)
+)engine='InnoDB' comment='管理员表';
+
+insert into admin VALUES
+(1,'root','21232f297a57a5a743894a0e4a801fc3'),
+(2,'tom','21232f297a57a5a743894a0e4a801fc3'),
+(3,'jack','21232f297a57a5a743894a0e4a801fc3');
