@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-class CategoryController
+class CategoryController extends BaseController
 {
     // 分类首页
     public function index()

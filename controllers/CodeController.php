@@ -1,7 +1,7 @@
 <?php
 namespace controllers;
 
-class CodeController
+class CodeController extends BaseController
 {
     //  代码生成器
     public function born()

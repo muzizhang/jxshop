@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-class RoleController
+class RoleController extends BaseController
 {
     // 分类首页
     public function index()

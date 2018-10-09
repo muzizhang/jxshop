@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-class BrandController
+class BrandController extends BaseController
 {
     // 分类首页
     public function index()

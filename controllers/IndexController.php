@@ -1,7 +1,7 @@
 <?php
 namespace controllers;
 
-class IndexController
+class IndexController extends BaseController
 {
     //  显示首页
     public function index()

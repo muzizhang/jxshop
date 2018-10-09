@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-class PrivilegeController
+class PrivilegeController extends BaseController
 {
     // 分类首页
     public function index()

@@ -1,7 +1,7 @@
 <?php 
 namespace controllers;
 
-class GoodsController
+class GoodsController extends BaseController
 {
     public function cate_two()
     {
