@@ -18,7 +18,9 @@ class AdminController
     {
         //  取出角色
         $role = new \models\role; 
-        $ro = $role->role();
+        $ro = $role->findAll([
+            'order_way'=>'asc'
+        ]);
 
         view('admin/create',[
             'role'=>$ro
@@ -48,7 +50,9 @@ class AdminController
 
         //  取出角色列表
         $role = new \models\role;
-        $ro = $role->role();
+        $ro = $role->findAll([
+            'order_way'=>'asc'
+        ]);
         //  取出当前用户的角色
         $roles = $admin->role($_GET['id']);
         // echo '<pre>';
