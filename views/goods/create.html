@@ -1,179 +1,341 @@
 <!-- $Id: category_info.htm 16752 2009-10-20 09:59:38Z wangleisvn $ -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>管理中心 - 数据添加 </title>
-<meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="/Styles/general.css" rel="stylesheet" type="text/css" />
-<link href="/Styles/main.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<h1>
-    <span class="action-span"><a href="/goods/index">数据分类</a></span>
-    <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
-    <span id="search_id" class="action-span1"> - 添加分类 </span>
-    <div style="clear:both"></div>
-</h1>
-<div class="main-div">
-    <form action="/goods/add" method="post" enctype="multipart/form-data">
-        <table width="100%" id="general-table">
-            <h3>基本信息</h3>
-            <tr>
-                <td class="label">商品名称:</td>
-                <td>
-                    <input type='text' name='goods_name'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">LOGO:</td>
-                <td>
-                    <input class="img_preview" type='file' name='logo'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">是否上架:</td>
-                <td>
-                    <input type="radio" name="is_on_sale" id="" value="y" checked>显示
-                    <input type="radio" name="is_on_sale" id="" value="n">私有
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">商品描述:</td>
-                <td>
-                    <textarea name="description" id="" cols="90" rows="10"></textarea>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">一级分类ID:</td>
-                <td>
-                    <select name="cat1_id" id="cat1">
-                        <option value="">请选择</option>
-                        <?php foreach($cate['data'] as $v):   ?>
-                        <option value="<?=$v['id']?>"><?=$v['cat_name']?></option>
-                        <?php endforeach;  ?>
-                    </select>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">二级分类ID:</td>
-                <td>
-                    <select name="cat2_id" id="cat2"></select>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">三级分类ID:</td>
-                <td>
-                    <select name="cat3_id" id="cat3"></select>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">品牌ID:</td>
-                <td>
-                    <input type='text' name='brand_id'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-        </table>
-        <table width="100%" id="general-table">
-            <h3>商品属性</h3>
-            <tr>
-                <td class="label">属性名称:</td>
-                <td>
-                    <input type='text' name='attr_name[]'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">属性值:</td>
-                <td>
-                    <input type='text' name='attr_value[]'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-        </table>
-        <table width="100%" id="general-table">
-            <h3>商品图片</h3>
-            <tr>
-                <td class="label">商品名称:</td>
-                <td>
-                    <input type='text' name='goods_name'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-        </table>
-        <table width="100%" id="general-table">
-            <h3>sku</h3>
-            <tr>
-                <td class="label">商品名称:</td>
-                <td>
-                    <input type='text' name='goods_name'/>
-                    <font color="red">*</font>
-                </td>
-            </tr>
-        </table>
-        <div class="button-div">
-            <input type="submit" value=" 确定 " />
-            <input type="reset" value=" 重置 " />
-        </div>
-    </form>
-</div>
 
-<div id="footer">商城后台2016</div>
+<head>
+    <title>管理中心 - 商品添加 </title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/Styles/general.css" rel="stylesheet" type="text/css" />
+    <link href="/Styles/main.css" rel="stylesheet" type="text/css" />
+    <style>
+        h3 {
+            margin-left: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class="action-span"><a href="/goods/index">商品列表</a></span>
+        <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
+        <span id="search_id" class="action-span1"> - 添加商品 </span>
+        <div style="clear:both"></div>
+    </h1>
+    <div class="main-div">
+        <form action="/goods/add" method="post" enctype="multipart/form-data">
+            <table width="100%" id="general-table">
+                <h3>基本信息</h3>
+                <tr>
+                    <td class="label">商品名称:</td>
+                    <td>
+                        <input type='text' size="80" name='goods_name' />
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">LOGO:</td>
+                    <td>
+                        <input class="img_preview" type='file' name='logo' />
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否上架:</td>
+                    <td>
+                        <input type="radio" name="is_on_sale" id="" value="y" checked>显示
+                        <input type="radio" name="is_on_sale" id="" value="n">私有
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">商品描述:</td>
+                    <td>
+                        <textarea name="description" id="" cols="90" rows="10"></textarea>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">一级分类ID:</td>
+                    <td>
+                        <select name="cat1_id" id="cat1">
+                            <option value="">请选择</option>
+                            <?php foreach($cate['data'] as $v):   ?>
+                            <option value="<?=$v['id']?>">
+                                <?=$v['cat_name']?>
+                            </option>
+                            <?php endforeach;  ?>
+                        </select>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">二级分类ID:</td>
+                    <td>
+                        <select name="cat2_id" id="cat2"></select>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">三级分类ID:</td>
+                    <td>
+                        <select name="cat3_id" id="cat3"></select>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">品牌ID:</td>
+                    <td>
+                        <input type='text' name='brand_id' />
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+            </table>
+            <h3>
+                商品属性
+                <input id="btn-attr" style="margin-left: 10px;height: 20px;" type="button" value="添加一个属性">
+            </h3>
+            <div id="attr_container">
+                <table width="100%" id="general-table">
+                    <tr>
+                        <td class="label">属性名称:</td>
+                        <td>
+                            <input type='text' size="80" name='attr_name[]' />
+                            <font color="red">*</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">属性值:</td>
+                        <td>
+                            <input type='text' size="80" name='attr_value[]' />
+                            <font color="red">*</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"></td>
+                        <td>
+                            <input type='button' onclick="del_attr(this)" value="删除" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <h3>
+                商品图片
+                <input id="btn-img" style="margin-left: 10px;height: 20px;" type="button" value="添加一个图片">
+            </h3>
+            <div id="img_container">
+                <table width="100%" id="general-table">
+                    <tr>
+                        <td class="label"></td>
+                        <td>
+                            <input class="img_preview" type='file' name='img_name[]' />
+                            <font color="red">*</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"></td>
+                        <td>
+                            <input type='button' onclick="del_attr(this)" value="删除" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <h3>
+                商品sku
+                <input id="btn-sku" style="margin-left: 10px;height: 20px;" type="button" value="添加一个sku">
+            </h3>
+            <div id="sku_container">
+                <table width="100%" id="general-table">
+                    <tr>
+                        <td class="label">sku:</td>
+                        <td>
+                            <input type='text' size="80" name='sku_name[]' />
+                            <font color="red">*</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">库存量:</td>
+                        <td>
+                            <input type='text' size="30" name='stock[]' />
+                            <font color="red">*</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">价格:</td>
+                        <td>
+                            ￥<input type='text' size="10" name='price[]' />元
+                            <font color="red">*</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"></td>
+                        <td>
+                            <input type='button' onclick="del_attr(this)" value="删除" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="button-div">
+                <input type="submit" value=" 确定 " />
+                <input type="reset" value=" 重置 " />
+            </div>
+        </form>
+    </div>
+
+    <div id="footer">商城后台2016</div>
 
 </body>
+
 </html>
 <script src="/Js/jquery.min.js"></script>
 <script src="/Js/img_preview.js"></script>
 <script>
+    //  删除
+    function del_attr(o)
+    {
+        if(confirm('确定要删除么？'))
+        {
+            $(o).parent().parent().parent().parent().prev('hr').remove();
+            $(o).parent().parent().parent().parent().remove();
+        }
+    }
+    //    click事件  添加一个属性的按钮
+    $('#btn-attr').click(function () {
+        var html = `<hr>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">属性名称:</td>
+                    <td>
+                        <input type='text' name='attr_name[]'/>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">属性值:</td>
+                    <td>
+                        <input type='text' name='attr_value[]'/>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <input type='button' onclick="del_attr(this)" value="删除"/>
+                    </td>
+                </tr>
+            </table>
+        `;
+        //  将字符串追加到文本中
+        $('#attr_container').append(html);
+    });
+    //    click事件  添加一个图片
+    $('#btn-img').click(function () {
+        var html = `<hr>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <input class="img_preview" type='file' name='img_name[]' />
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <input type='button' onclick="del_attr(this)" value="删除"/>
+                    </td>
+                </tr>
+            </table>
+        `;
+        $('#img_container').append(html);
+
+        //  绑定预览事件
+        $('.img_preview').change(function(){
+            var file = this['files'][0];
+            //   转成字符串
+            var str = getObjectUrl(file);
+            //  删除上一个
+            $(this).prev('.imgPreview').remove();
+            //  将获取到的图片 添加
+            $(this).before("<div class='imgPreview'><img src='"+str+"' width='120' height='120' /></div>");
+        });
+
+    });
+    //    click事件  添加一个sku
+    $('#btn-sku').click(function () {
+        var html = `<hr>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">sku:</td>
+                    <td>
+                        <input type='text' size="80" name='sku_name[]' />
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">库存量:</td>
+                    <td>
+                        <input type='text' size="30" name='stock[]' />
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">价格:</td>
+                    <td>
+                        ￥<input type='text' size="10" name='price[]' />元
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <input type='button' onclick="del_attr(this)" value="删除"/>
+                    </td>
+                </tr>
+            </table>
+        `;
+        $('#sku_container').append(html);
+    });
+</script>
+<script>
     //  获取一级分类的id
-    $('#cat1').change(function(){
+    $('#cat1').change(function () {
         var id = $(this).val();
-        if(id != ''){
+        if (id != '') {
             //  根据id 获取二级分类的内容
             $.ajax({
-                type:'GET',
-                url:'/goods/cate_two?id='+id,
-                dataType:'json',
-                success:function(data){
+                type: 'GET',
+                url: '/goods/cate_two?id=' + id,
+                dataType: 'json',
+                success: function (data) {
                     var html = '';
-                    for(var i =0;i<data.data.length;i++)
-                    {
-                        html += '<option value="'+data.data[i].id+'">'+data.data[i].cat_name+'</option>';
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += '<option value="' + data.data[i].id + '">' + data.data[i].cat_name + '</option>';
                     }
                     $('#cat2').html(html);
                     //  使用 jquery 的  trigger()  响应事件
-                    $('#cat2').trigger('change',$('#cat2').val());
+                    $('#cat2').trigger('change', $('#cat2').val());
                 }
             });
         }
-        else
-        {
+        else {
             $('#cat2').html('');
             $('#cat3').html('');
         }
     });
 
     //  三级分类
-    $('#cat2').change(function(){
+    $('#cat2').change(function () {
         var id = $(this).val();
         //  获取内容
         $.ajax({
-            type:'GET',
-            url:'/goods/cate_three?id='+id,
-            dataType:'json',
-            success:function(data){
+            type: 'GET',
+            url: '/goods/cate_three?id=' + id,
+            dataType: 'json',
+            success: function (data) {
                 var html = '';
-                for(var i=0;i<data.data.length;i++)
-                {
-                    html += '<option value="'+data.data[i].id+'">'+data.data[i].cat_name+'</option>';
+                for (var i = 0; i < data.data.length; i++) {
+                    html += '<option value="' + data.data[i].id + '">' + data.data[i].cat_name + '</option>';
                 }
                 $('#cat3').html(html);
             }

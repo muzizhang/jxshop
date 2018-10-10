@@ -1,14 +1,14 @@
 $('.img_preview').change(function(){
     // 获取选择的图片
     var file = this.files[0];
-    console.log(this.files[0]);
+    // console.log(this.files[0]);
     // 转成字符串
     var str = getObjectUrl(file);
-    console.log(str);
+    // console.log(str);
     // 先删除上一个
-    $(this).prev('.img_preview').remove();
+    $(this).prev('.imgPreview').remove();
     // 在框的前面放一个图片
-    $(this).before("<div class='img_preview'><img src='"+str+"' width='120' height='120'></div>");
+    $(this).before("<div class='imgPreview'><img src='"+str+"' width='120' height='120'></div>");
 });
 
 // 把图片转成一个字符串

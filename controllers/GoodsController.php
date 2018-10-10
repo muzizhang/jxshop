@@ -3,6 +3,7 @@ namespace controllers;
 
 class GoodsController extends BaseController
 {
+    //  三级联动二级
     public function cate_two()
     {
         $id = (int)$_GET['id'];
@@ -11,6 +12,7 @@ class GoodsController extends BaseController
         //  返回json数据
         echo json_encode($two);
     }
+    //  三级联动三级
     public function cate_three()
     {
         $id = $_GET['id'];
@@ -47,9 +49,7 @@ class GoodsController extends BaseController
         $goods->fill($_POST);
         //  添加数据
         $a = $goods->insert();
-        var_dump($a);
-        die;
-        $goods->attribute();
+        // $goods->attribute();
         //  跳转页面
         redirect('/goods/index');
     }
