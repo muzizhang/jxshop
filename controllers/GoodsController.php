@@ -58,6 +58,7 @@ class GoodsController extends BaseController
         $goods = new \models\goods;
         //  接收数据
         $data = $goods->find($_GET['id']);
+        
         view('goods/edit',[
             'data'=>$data
         ]);

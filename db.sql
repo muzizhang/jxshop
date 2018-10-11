@@ -104,6 +104,45 @@ insert into privilege VALUES
         (8,'修改商品','goods/edit,goods/modify',6),
         (9,'删除商品','goods/delete',6);
 
+
+insert into privilege(id,pri_name,url_path,parent_id) VALUES
+(1,'商品模块','',0),
+    (2,'分类列表','category/index',1),
+        (3,'添加分类','category/create,category/add',2),
+        (4,'修改分类','category/edit,category/modify',2),
+        (5,'删除分类','category/delete',2),
+    (6,'品牌列表','brand/index',1),
+        (7,'添加品牌','brand/create,brand/add',6),
+        (8,'修改品牌','brand/edit,brand/modify',6),
+        (9,'删除品牌','brand/delete',6),
+    (10,'商品列表','goods/index',1),
+        (11,'添加商品','goods/create,goods/add',10),
+        (12,'修改商品','goods/edit,goods/modify',10),
+        (13,'删除商品','goods/delete',10),
+        (36,'AJAX获取分类','goods/ajax_get_cat',10),
+(14,'管理员模块','',0),
+    (15,'权限列表','privilege/index',14),
+        (16,'添加权限','privilege/create,privilege/add',15),
+        (17,'修改权限','privilege/edit,privilege/modify',15),
+        (18,'删除权限','privilege/delete',15),
+    (19,'角色列表','role/index',14),
+        (20,'添加角色','role/create,role/add',19),
+        (21,'修改角色','role/edit,role/modify',19),
+        (22,'删除角色','role/delete',19),
+    (23,'管理员列表','admin/index',14),
+        (24,'添加管理员','admin/create,admin/add',23),
+        (25,'修改管理员','admin/edit,admin/modify',23),
+        (26,'删除管理员','admin/delete',23),
+(27,'文章模块','',0),
+    (28,'分类列表','Article_category/index',27),
+        (29,'添加分类','article_category/create,article_category/add',28),
+        (30,'修改分类','article_category/edit,article_category/modify',28),
+        (31,'删除分类','article_category/delete',28),
+    (32,'文章列表','article/index',27),
+        (33,'添加文章','article/create,article/add',32),
+        (34,'修改文章','article/edit,article/modify',32),
+        (35,'删除文章','article/delete',32);
+
 -- 地址     goods/create,goods/add
 
 drop table if exists role_privilege;
@@ -172,3 +211,24 @@ insert into admin VALUES
 (1,'root','21232f297a57a5a743894a0e4a801fc3'),
 (2,'tom','21232f297a57a5a743894a0e4a801fc3'),
 (3,'jack','21232f297a57a5a743894a0e4a801fc3');
+
+
+drop table if exists article_category;
+create table article_category
+(
+    id int unsigned not null auto_increment comment 'ID',
+    cat_name VARCHAR(255) not null comment '分类名称',
+    primary key (id)
+)engine='InnoDB' comment='文章分类表';
+
+drop table if exists article;
+create table article
+(
+    id int unsigned not null auto_increment comment 'ID',
+    title VARCHAR(255) not null comment '标题',
+    content longtext comment '内容',
+    created_at datetime not null default CURRENT_TIMESTAMP comment '创建时间',
+    link VARCHAR(255) comment '链接地址',
+    article_category_id int unsigned not null comment '分类id',
+    primary key (id)
+)engine='InnoDB' comment='文章表';
