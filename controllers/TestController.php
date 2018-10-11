@@ -7,4 +7,8 @@ class TestController extends BaseController
     {
         view('test/test');
     }
+    public function upload()
+    {
+        view('test/upload');
+    }
 }

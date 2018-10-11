@@ -8,6 +8,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/Styles/general.css" rel="stylesheet" type="text/css" />
     <link href="/Styles/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/simditor/simditor.css" />
+
+    <script type="text/javascript" src="/simditor/jquery.min.js"></script>
+    <script type="text/javascript" src="/simditor/module.js"></script>
+    <script type="text/javascript" src="/simditor/hotkeys.js"></script>
+    <script type="text/javascript" src="/simditor/uploader.js"></script>
+    <script type="text/javascript" src="/simditor/simditor.js"></script>
 </head>
 
 <body>
@@ -31,9 +38,9 @@
                 <tr>
                     <td class="label">内容:</td>
                     <td>
-                        <textarea name="content" id="" cols="90" rows="10"></textarea>
+                        <textarea name="content" id="editor"></textarea>
 
-                        <font color="red">*</font>
+                        <!-- <font color="red">*</font> -->
                     </td>
                 </tr>
                 <tr>
@@ -68,3 +75,36 @@
 </body>
 
 </html>
+<script>
+    //  初始化simditor
+    var editor = new Simditor({
+        textarea:$('#editor'),
+        toolbar:[
+            'title',
+            'bold',
+            'italic',
+            'underline',
+            'strikethrough',
+            'fontScale',
+            'color',
+            'ol'    ,       
+            'ul'         ,
+            'blockquote',
+            'code'       ,
+            'table',
+            'link',
+            'image',
+            'hr'          , 
+            'indent',
+            'outdent',
+            'alignment'
+        ],
+        upload:{
+            url: '/upload/upload',      //  上传图片的服务器接口
+            params: '400*400',     //  额外的参数发送到服务器  eg: 生成缩略图的尺寸 
+            fileKey: 'file',    //   服务器再接收文件时使用的文件名
+            connectionCount: 3,     //  可以同时上传多少张图片
+            leaveConfirm: 'Uploading is in progress, are you sure to leave this page?',    // 离开提示
+        },
+    });
+</script>
